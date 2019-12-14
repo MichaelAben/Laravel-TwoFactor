@@ -1,0 +1,27 @@
+{
+    "name": "maben-dev/laravel-twofactor",
+    "description": "Laravel two-factor",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Aben",
+            "email": "m.aben@live.nl"
+        }
+    ],
+    "require": {
+        "php": ">=7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "MabenDev\\TwoFactor\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MabenDev\\TwoFactor\\ServiceProvider"
+            ]
+        }
+    }
+}
