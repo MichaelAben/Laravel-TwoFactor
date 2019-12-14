@@ -16,4 +16,9 @@ class TwoFactor extends Model
     protected $casts = [
         'setup' => 'boolean',
     ];
+
+    public function getTable()
+    {
+        return config('MabenDevTwoFactor.database_prefix') . 'two_factors';
+    }
 }

@@ -5,7 +5,6 @@ namespace MabenDev\TwoFactor;
 
 
 use Illuminate\Support\ServiceProvider as provider;
-use MabenDev\TwoFactor\Middleware\TwoFactor;
 
 class ServiceProvider extends provider
 {
@@ -16,12 +15,20 @@ class ServiceProvider extends provider
 
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/Config/MabenDevTwoFactorConfig.php' => config_path('MabenDevTwoFactor.php'),
-        ], 'config');
-
         $this->loadMigrationsFrom( __DIR__.'/Migrations/');
 
-        $this->app['router']->aliasMiddleware('TwoFactor', TwoFactor::class);
+        $this->loadViewsFrom(__DIR__.'/Views', 'MabenDevTwoFactor');
+
+        $this->loadTranslationsFrom(__DIR__.'/Lang', 'MabenDevTwoFactor');
+
+        $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
+
+        $this->publishes([
+            __DIR__.'/Config/MabenDevTwoFactorConfig.php' => config_path('MabenDevTwoFactor.php'),
+
+            __DIR__.'/Views' => resource_path('views/vendor/MabenDevTwoFactor'),
+
+            __DIR__.'/lang' => resource_path('lang/vendor/MabenDevTwoFactor'),
+        ], 'MabenDevTwoFactor');
     }
 }

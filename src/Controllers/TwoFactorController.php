@@ -4,28 +4,36 @@ namespace MabenDev\TwoFactor\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TwoFactorController extends Controller
 {
     public function index()
     {
-        return view('TwoFactor.index', [
+        return view('MabenDevTwoFactor::index', [
             'qr' => Auth::user()->getQr(),
         ]);
     }
 
     public function verify(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             '2fa' => 'required',
         ]);
 
-        /** @var User $user */
-        $user = Auth::user();
-        if(!$user->checkCode($request->input('2fa'))) {
-            return redirect()->back()->with('error', 'Invalid code, please try again');
+        $validator->after(function($validator) {
+            /** @var User $user */
+            $user = Auth::user();
+            if(!$user->checkCode(Request()->input('2fa'))) {
+                $validator->errors()->add('2fa', __('MabenDevTwoFactor::TwoFactor.error_invalid_code'));
+            }
+        });
+
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
         }
 
         $request->session()->put('2fa', true);

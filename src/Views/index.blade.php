@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('TwoFactor.form_title') }}</div>
+                    <div class="card-header">{{ __('MabenDevTwoFactor::TwoFactor.form_title') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('2fa-form') }}">
@@ -17,13 +17,13 @@
                                         <img class="img-fluid" src="{{ $qr }}">
                                     </div>
                                     <div class="col-md-8">
-                                        {{ __('TwoFactor.form_info') }}
+                                        {{ __('MabenDevTwoFactor::TwoFactor.form_info') }}
                                     </div>
                                 </div>
                             @endif
 
                             <div class="form-group row">
-                                <label for="2fa" class="col-md-4 col-form-label text-md-right">{{ __('TwoFactor.form_label') }}</label>
+                                <label for="2fa" class="col-md-4 col-form-label text-md-right">{{ __('MabenDevTwoFactor::TwoFactor.form_label') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="2fa" type="text" class="form-control @error('2fa') is-invalid @enderror" name="2fa" required autofocus>
@@ -39,7 +39,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('TwoFactor.form_submit') }}
+                                        {{ __('MabenDevTwoFactor::TwoFactor.form_submit') }}
                                     </button>
                                 </div>
                             </div>
