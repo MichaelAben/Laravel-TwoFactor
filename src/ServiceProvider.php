@@ -4,6 +4,7 @@
 namespace MabenDev\TwoFactor;
 
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as provider;
 
 class ServiceProvider extends provider
@@ -22,6 +23,10 @@ class ServiceProvider extends provider
         $this->loadTranslationsFrom(__DIR__.'/Lang', 'MabenDevTwoFactor');
 
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
+
+        /** @var Router $router */
+        $router = $this->app['router'];
+        $router->aliasMiddleware('TwoFactor', Middleware\TwoFactor::class);
 
         $this->publishes([
             __DIR__.'/Config/MabenDevTwoFactorConfig.php' => config_path('MabenDevTwoFactor.php'),
