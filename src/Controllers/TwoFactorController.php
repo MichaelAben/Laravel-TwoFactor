@@ -7,12 +7,15 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class TwoFactorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        Session::put('url.intended', URL::previous());
         return view('MabenDevTwoFactor::index', [
             'qr' => Auth::user()->getQr(),
         ]);
@@ -38,6 +41,6 @@ class TwoFactorController extends Controller
 
         $request->session()->put('2fa', true);
         Auth::user()->twoFactor->update(['setup' => true]);
-        return redirect()->route('home');
+        return redirect()->intended(config('MabenDevTwoFactor.redirect_url', '/home'));
     }
 }
