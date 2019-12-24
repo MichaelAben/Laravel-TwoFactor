@@ -49,7 +49,7 @@ trait HasTwoFactor
 
         $g2faUrl = self::getGoogleTwoFactor()->getQRCodeUrl(
             env('APP_NAME', 'Laravel'),
-            env('APP_EMAIL', 'admin@example.com'),
+            $this->email,
             $this->twoFactor->secret
         );
 
